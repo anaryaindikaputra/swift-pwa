@@ -34,11 +34,12 @@ const passwordStrength = {
 /* Translation */
 const translation = {
     defaultLanguage: 'en', // just change to your default language
-    languages: ['en', 'id'], // array code language what you want
+    languages: ['en', 'id', 'it'], // array code language what you want
     // language label code
     languagesLabel: {
         en: 'English',
         id: 'Indonesia',
+        it: 'Italian',
     },
 };
 
@@ -112,7 +113,9 @@ const keyLocalStorage = {
 };
 
 const features = {
-    useCustomStyle: false,
+    // Default value is false
+    // useCustomStyle: false,
+    useCustomStyle: true,
     ssrCache: false,
     magezon: {
         instagramFeed: {

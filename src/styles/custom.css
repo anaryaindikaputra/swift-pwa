@@ -1,0 +1,13 @@
+/* Custom CSS Testing */
+.copyright {
+    background-color: #BFE3B4!important;
+}
+
+.product-grid {
+    margin-top: 2rem!important;
+}
+
+.product-card-action {
+    display: flex;
+    flex-direction: row-reverse;
+}
