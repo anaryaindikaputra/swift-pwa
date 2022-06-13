@@ -1,15 +1,31 @@
+/**
+ * ---------------------------------------------------- *
+ * @dependencies Component View Dependencies
+ * @summary This code block is used for defining
+ * component dependencies
+ * ---------------------------------------------------- *
+ */
+// Components Dependencies
+import Button from '@common_button';
 import Typography from '@common_typography';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
+import Help from '@material-ui/icons/Help';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Popover from '@material-ui/core/Popover';
-import Help from '@material-ui/icons/Help';
-import Button from '@common_button';
 import Spiner from '@material-ui/core/CircularProgress';
+// Styling Dependencies
 import useStyles from '@core_modules/checkout/pages/default/components/style';
 
+/**
+ * ---------------------------------------------------- *
+ * @components Component View
+ * @summary This function is used for defining
+ * component view
+ * ---------------------------------------------------- *
+ */
 const EmailView = (props) => {
     const {
         t, formik, setAnchorEl, anchorEl, idButton, open, config,

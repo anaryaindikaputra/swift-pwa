@@ -1,0 +1,123 @@
+/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/**
+ * ---------------------------------------------------- *
+ * @dependencies Plugin Component View Dependencies
+ * @summary This code block is used for defining
+ * dependencies
+ * ---------------------------------------------------- *
+ */
+// Core Dependencies
+import { useRouter } from 'next/router';
+// Components Dependencies
+import Drawer from '@material-ui/core/Drawer';
+import Skeleton from '@plugin_minicart/components/skeleton';
+import ItemCart from '@plugin_minicart/components/product';
+import PaypalButtonView from '@plugin_paypalbutton';
+// Helper Dependencies
+import { formatPrice } from '@helper_currency';
+// Styling Dependencies
+import useStyles from '@plugin_minicart/components/style';
+
+/**
+ * ---------------------------------------------------- *
+ * @components Plugin Component View
+ * @summary This function is used for defining
+ * plugin component view
+ * ---------------------------------------------------- *
+ */
+const MiniComponent = (props) => {
+    const router = useRouter();
+    const {
+        open, setOpen, count, t, loading, data, deleteCart, updateCart, errorCart, storeConfig,
+    } = props;
+    const styles = useStyles();
+    const disabled = errorCart && errorCart.length > 0;
+    const subtotal_including_tax = data?.prices?.subtotal_including_tax?.value || 0;
+    const subtotal_including_tax_currency = data?.prices?.subtotal_including_tax?.currency || 'IDR';
+    return (
+        <Drawer anchor="right" open={open} onClose={setOpen}>
+            <div className={styles.container}>
+                <div className={styles.mini_top}>
+                    <span>
+                        {count}
+                        {' '}
+                        Items
+                    </span>
+                    <span>{t('common:cart:myCart')}</span>
+                    <span onClick={setOpen}>{t('common:button:close')}</span>
+                </div>
+                {loading || !data.items ? <Skeleton /> : <ItemCart data={data.items} t={t} deleteCart={deleteCart} updateCart={updateCart} />}
+                {data && data.total_quantity > 0 ? (
+                    <div className={styles.mini_bottom}>
+                        <div className="sub-total">
+                            <span>
+                                {t('common:cart:cardTotal')}
+                                :
+                            </span>
+                            <strong>{data.prices ? formatPrice(subtotal_including_tax, subtotal_including_tax_currency) : '-'}</strong>
+                        </div>
+                        <div
+                            className="edit-cart"
+                            onClick={() => {
+                                setOpen();
+                                router.push('/checkout/cart');
+                            }}
+                        >
+                            {t('common:button:viewandedit')}
+                        </div>
+                        {!disabled && (
+                            <div className="checkout">
+                                <div
+                                    className="checkout-button"
+                                    onClick={() => {
+                                        const minimumOrderEnabled = storeConfig.minimum_order_enable;
+                                        const grandTotalValue = data.prices.grand_total.value;
+                                        const minimumOrderAmount = storeConfig.minimum_order_amount;
+                                        if (minimumOrderEnabled && grandTotalValue < minimumOrderAmount) {
+                                            const errorMessage = {
+                                                variant: 'error',
+                                                text: `Unable to place order: Minimum order amount is ${formatPrice(minimumOrderAmount)}`,
+                                                open: true,
+                                            };
+                                            window.toastMessage({
+                                                ...errorMessage,
+                                            });
+                                            setTimeout(() => {
+                                                router.push('/checkout/cart');
+                                            }, 3000);
+                                        } else if (subtotal_including_tax) {
+                                            setOpen();
+                                            router.push('/checkout');
+                                        } else {
+                                            window.toastMessage({
+                                                open: true,
+                                                text: t('common:cart:cartError'),
+                                                variant: 'error',
+                                            });
+                                        }
+                                    }}
+                                >
+                                    {t('common:button:goCheckout')}
+                                </div>
+                            </div>
+                        )}
+                        {!disabled && data && (
+                            <div className="btn-paypal">
+                                <PaypalButtonView
+                                    cart={data}
+                                    t={t}
+                                    storeConfig={storeConfig}
+                                />
+                            </div>
+                        )}
+                    </div>
+                ) : null}
+            </div>
+        </Drawer>
+    );
+};
+
+export default MiniComponent;

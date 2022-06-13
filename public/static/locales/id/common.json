@@ -119,7 +119,8 @@
         "myaccount": "Akun Saya",
         "mywishlist": "Daftar Saya",
         "signout": "keluar",
-        "loading": "Menunggu"
+        "loading": "Menunggu",
+        "hello": "Halo Produk"
     },
     "header": {
         "welcome": "Selamat Datang!",

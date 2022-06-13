@@ -1,10 +1,26 @@
+/**
+ * ---------------------------------------------------- *
+ * @dependencies Component View Dependencies
+ * @summary This code block is used for defining
+ * component dependencies
+ * ---------------------------------------------------- *
+ */
+// Core Dependencies
 import React from 'react';
+// Component Dependencies
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-// Custom Training
+// Utility Dependencies
 import classNames from 'classnames';
+// Styling Dependencies
 import useStyles from './styles';
 
+/**
+ * ---------------------------------------------------- *
+ * @components Component View
+ * @summary This function is used for defining
+ * component view
+ * ---------------------------------------------------- *
+ */
 const NewsletterView = (props) => {
     const customStyles = useStyles();
 
@@ -72,7 +88,7 @@ const NewsletterView = (props) => {
                         </div>
                     ) : null}
                     <div className={`${customStyles.box} block-newsletter`}>
-                    {/* <div className="block-newsletter"> */}
+                        {/* <div className="block-newsletter"> */}
                         <div className="content">
                             <form className="form subscribe" noValidate id="newsletter-validate-detail" onSubmit={formik.handleSubmit}>
                                 <div className="field-newsletter">
@@ -137,10 +153,10 @@ const NewsletterView = (props) => {
                                         onClick={() =>
                                             formik.values.email === ''
                                                 ? window.toastMessage({
-                                                      open: true,
-                                                      variant: 'error',
-                                                      text: t('common:newsletter:emptyValue'),
-                                                  })
+                                                    open: true,
+                                                    variant: 'error',
+                                                    text: t('common:newsletter:emptyValue'),
+                                                })
                                                 : ''
                                         }
                                     >
@@ -158,8 +174,8 @@ const NewsletterView = (props) => {
                         position: relative;
                         margin-bottom: -40px;
                         height: ${layout_type === 'box'
-                            ? `${title_font_size ? Number(title_font_size) + totalHeight + 40 : totalHeight}px`
-                            : title_font_size
+                        ? `${title_font_size ? Number(title_font_size) + totalHeight + 40 : totalHeight}px`
+                        : title_font_size
                             ? `${170 + Number(title_font_size) + 20}px`
                             : '170px'};
                         background: #f4f4f4;
