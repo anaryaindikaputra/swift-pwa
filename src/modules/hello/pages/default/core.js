@@ -1,10 +1,20 @@
+/**
+ * ---------------------------------------------------- *
+ * @dependencies Component View Dependencies
+ * @summary This code block is used for defining
+ * component dependencies
+ * ---------------------------------------------------- *
+ */
+// Core Dependencies
 import React from 'react';
+// Component Dependencies
+import ButtonAddToCart from '@common_buttonaddtocart';
 import Layout from '@layout';
-import { getAllProducts } from '@core_modules/hello/services/graphql';
 import {
     Card, CardActions, CardContent, CardMedia, Container, Grid,
-} from '@root/node_modules/@material-ui/core/index';
-import AddToCartButton from '@core_modules/commons/AddToCartButton';
+} from '@material-ui/core/index';
+// Utility Dependencies
+import { getAllProducts } from '@core_modules/hello/services/graphql';
 
 const CoreDefault = (props) => {
     const { data, loading, error } = getAllProducts();
@@ -51,7 +61,7 @@ const CoreDefault = (props) => {
                                     </CardContent>
                                     <CardActions className="product-card-action">
                                         {/* <Button variant="text">Add to Cart</Button> */}
-                                        <AddToCartButton />
+                                        <ButtonAddToCart />
                                     </CardActions>
                                 </Card>
                             </Grid>

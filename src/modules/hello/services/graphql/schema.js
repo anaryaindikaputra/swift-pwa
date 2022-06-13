@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const getAllProducts = gql`
+export const getAllProducts = gql`
     query getProducts($pageSize: Int, $currentPage: Int) {
         products(
             search: ""
